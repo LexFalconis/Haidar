@@ -8,13 +8,13 @@
 Vagrant.configure("2") do |config|
   config.vm.define "webserver" do |web|
     web.vm.box = "debian/jessie64"
-	#onfig.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "192.168.0.11"
+	#config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "192.168.0.11"
 	config.vm.network :forwarded_port, guest: 80, host: 8080
-	config.vm.network :forwarded_port, guest: 3306, host: 3306
+	#config.vm.network :forwarded_port, guest: 3306, host: 3306
 	config.vm.network "public_network", ip: "192.168.0.11"
 	config.vm.synced_folder "./teste01", "/var/www/html"
 	config.vm.provider "virtualbox" do |virtualbox|
-	  virtualbox.customize [ "modifyvm", :id, "--cpus", "1" ]
+	  virtualbox.customize [ "modifyvm", :id, "--cpus", "2" ]
 	  virtualbox.customize [ "modifyvm", :id, "--memory", "1024" ]
 	end
 	config.vm.provision "shell", path: "webserver.sh"
@@ -23,10 +23,10 @@ Vagrant.configure("2") do |config|
     db.vm.box = "debian/jessie64"
 	#config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "192.168.0.12"
 	#config.vm.network :forwarded_port, guest: 80, host: 8080
-	#config.vm.network :forwarded_port, guest: 3306, host: 3306
-	config.vm.network "public_network", ip: "192.168.0.12"
+	config.vm.network :forwarded_port, guest: 3306, host: 3306
+	config.vm.network "public_network", ip: "192.168.0.12" #type: "dhcp"
 	config.vm.provider "virtualbox" do |virtualbox|
-	  virtualbox.customize [ "modifyvm", :id, "--cpus", "1" ]
+	  virtualbox.customize [ "modifyvm", :id, "--cpus", "2" ]
 	  virtualbox.customize [ "modifyvm", :id, "--memory", "1024" ]
     end
 	config.vm.provision "shell", path: "database.sh"

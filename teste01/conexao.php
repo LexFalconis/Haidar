@@ -1,6 +1,6 @@
 <?php
 
-$conn = 'mysql:host=192.168.0.12;dbname=estudos';
+$conn = 'mysql:host=127.0.0.1;dbname=estudos';
 
 try{
     $db = new PDO($conn, 'root','123456789');

@@ -1,5 +1,6 @@
 <?php require_once "vendor/php-activerecord/php-activerecord/ActiveRecord.php";
-require_once "config.php"; ?>
+require_once "config.php";
+require_once "menu.php";?>
 <!DOCTYPE html>
 <html>
 <head>

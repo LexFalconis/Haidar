@@ -1,5 +1,6 @@
 <?php require_once "vendor/php-activerecord/php-activerecord/ActiveRecord.php";
-require_once "config.php"; ?>
+require_once "config.php";
+require_once "menu.php";?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +12,8 @@ require_once "config.php"; ?>
 <body>
 <?php
 $actor = Actor::find('all');
-echo "<pre>";
-print_r($actor);
-foreach($ator as $actor){
+
+foreach($actor as $ator){
     echo "Nome: ".$ator->first_name . " / " . $ator->last_name;
     echo "<a href='del.php?id=".$ator->actor_id."'><button>Deletar</button></a><br/>";
 }

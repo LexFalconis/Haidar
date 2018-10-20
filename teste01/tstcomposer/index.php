@@ -1,29 +1,42 @@
-<?php include_once"conect.php";
+<?php
 
-for($i=0;$i<5;$i++){
-    $pessoa = "Pessoa número ".$i." ".date('h:i:s');
-    $idade = $i+1 ." Anos";
-    $sqlInsert = "insert into PESSOAS (NOME, IDADE)VALUES(:pessoa,:idade)";
-    try{
-        $cadastro = $db->prepare($sqlInsert);
-        $cadastro->bindValue(':pessoa', $pessoa, PDO::PARAM_STR);
-        $cadastro->bindValue(':idade', $idade, PDO::PARAM_STR);
-        if($cadastro->execute()){
-            echo "<script>alert('Cadastrado com sucesso');</script>";
-        }
-    }catch(PDOException $erro){
-        echo "Erro: " . $erro->getMessage();
-    }
-}
-echo "<hr>";
+require_once 'vendor/php-activerecord/php-activerecord/ActiveRecord.php';
 
-$sqlRead = "select * from PESSOAS";
-try{
-    $read = $db->prepare($sqlRead);
-    $read->execute();
-}catch(PDOException $erro){
-    echo "Erro: ".$erro->getMessage();
-}
-while($exibir = $read->fetch(PDO::FETCH_OBJ)){
-    echo "Nome: " . $exibir->NOME . " Idade: " . $exibir->IDADE . "<a href='deletar.php?apagar=".$exibir->ID."' target='_blank'><button>Deletar</button></a><a href='editar.php?edit=".$exibir->ID."' target='_blank'><button>Editar</button></a><br/>";
-}
+    ActiveRecord\Config::initialize(function($cfg){
+        $cfg->set_model_directory('models');
+        $cfg->set_connections(array('development' => 
+        'mysql://root:123456789@localhost/sakila'));
+    });
+    
+$actor = new Actor();
+$actor->first_name = "Alex";
+$actor->last_name = "Barros";
+$actor->last_update = "1988-07-01 00:00:00";
+$actor->save();
+
+echo 'Add Alex<br/><pre>';
+print_r($actor);
+echo '</pre><hr>';
+
+$actor = Actor::find(1);
+echo $actor->first_name;
+$actor->first_name = "Penelope Old";
+$actor->save();
+echo "<br/>";
+$actor = Actor::find(1);
+echo $actor->first_name;
+
+echo '<pre>';
+print_r($actor);
+echo '</pre><hr>';
+
+$actor = Actor::find_by_last_name('Barros');
+echo '<pre>';
+print_r($actor);
+echo '</pre>';
+$actor->delete();
+
+$actor = Actor::all();
+echo '<hr><pre>';
+print_r($actor);
+echo '</pre><hr>';

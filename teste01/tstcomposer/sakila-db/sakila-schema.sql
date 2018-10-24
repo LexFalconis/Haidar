@@ -115,7 +115,7 @@ CREATE TABLE customer (
 -- Table structure for table `film`
 --
 
-CREATE TABLE film (
+CREATE TABLE filme (
   film_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
   description TEXT DEFAULT NULL,

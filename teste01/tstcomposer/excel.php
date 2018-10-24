@@ -1,6 +1,7 @@
 <?php require_once "vendor/autoload.php";
 require_once "config.php";
-require_once "menu.php";?>
+require_once "menu.php";
+error_reporting(E_ALL); // todas?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,8 @@ require_once "menu.php";?>
 </head>
 <body>
 <?php
-$filme = Film::find('all');
-
+$filme = Filme::find('all');
+#print_r($filme);
 foreach($filme as $flm){
     echo "Nome: ".$flm->title . " / " . $flm->description;
     echo "<a href='del.php?id=".$flm->film_id."'><button>Deletar</button></a><br/>";

@@ -14,10 +14,19 @@ error_reporting(E_ALL); // todas?>
 <?php
 $filme = Filme::find('all');
 #print_r($filme);
+$dados = array();
 foreach($filme as $flm){
-    echo "Nome: ".$flm->title . " / " . $flm->description;
-    echo "<a href='del.php?id=".$flm->film_id."'><button>Deletar</button></a><br/>";
+    $dados[] = $flm;
 }
+echo "<hr><pre>";
+print_r($dados);
+echo "</pre><hr>";
+
+$data = array($dados);
+
+$writer = new XLSXWriter();
+$writer->writeSheet($data);
+$writer->writeToFile('output.xlsx');
 ?>
 </body>
 </html>
@@ -36,4 +45,15 @@ foreach($filme as $flm){
   $filme->rating
   $filme->special_features
   $filme->last_update
+
+
+$data = array(
+array('year','month','amount'),
+array('2003','1','220'),
+array('2003','2','153.5'),
+);
+
+$writer = new XLSXWriter();
+$writer->writeSheet($data);
+$writer->writeToFile('output.xlsx');
   -->

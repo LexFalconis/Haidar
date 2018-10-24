@@ -1,6 +1,6 @@
 <?php
 
-require_once 'vendor/php-activerecord/php-activerecord/ActiveRecord.php';
+require_once 'vendor/autoload.php';
 require_once "menu.php";
     ActiveRecord\Config::initialize(function($cfg){
         $cfg->set_model_directory('models');

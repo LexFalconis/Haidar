@@ -1,4 +1,4 @@
-<?php require_once 'vendor/php-activerecord/php-activerecord/ActiveRecord.php';
+<?php require_once 'vendor/autoload.php';
 require_once "config.php";
 require_once "menu.php";?>
 <!DOCTYPE html>

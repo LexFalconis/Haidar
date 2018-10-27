@@ -12,20 +12,31 @@ error_reporting(E_ALL); // todas?>
 </head>
 <body>
 <?php
-$filme = Filme::find('all');
+$filme = Filme::find('all', array('order' => 'title desc'));
 #print_r($filme);
 $dados = array();
 foreach($filme as $flm){
-    $dados[] = $flm;
+    $dados[] = array($flm->film_id,
+    $flm->title,
+    $flm->description,
+    $flm->release_year,
+    $flm->language_id,
+    $flm->original_language_id,
+    $flm->rental_duration,
+    $flm->rental_rate,
+    $flm->length,
+    $flm->replacement_cost,
+    $flm->rating,
+    $flm->special_features,
+    $flm->last_update);
 }
+#echo $dados[1]->title;
 echo "<hr><pre>";
 print_r($dados);
 echo "</pre><hr>";
 
-$data = array($dados);
-
 $writer = new XLSXWriter();
-$writer->writeSheet($data);
+$writer->writeSheet($dados);
 $writer->writeToFile('output.xlsx');
 ?>
 </body>
